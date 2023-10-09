@@ -29,6 +29,10 @@ public class Locators {
         System.out.println(driver.findElement(By.cssSelector("p.error")).getText());
         // Link text locator - requires "a" anchor tag
         driver.findElement(By.linkText("Forgot your password?")).click();
+
+        ///////////////// need an explicit wait here to allow the sliding page time to transition
+        Thread.sleep(1000);
+        //
         // XPath locator
         // xpath("//tagname[@attribute='value']")
         // check for number of instances in console - >$x('//input[@placeholder="Name"]') - wrap in SINGLE QUOTES
@@ -39,7 +43,27 @@ public class Locators {
         driver.findElement(By.xpath("//input[@type='text'][2]")).clear();
         // CSS Selector - custom locator using index string
         driver.findElement(By.cssSelector("input[type='text']:nth-child(3)")).sendKeys("john@gamil.com");
+        // XPath Selector - custom locator using only tags (no attributes) and index
+        driver.findElement(By.xpath("//form/input[3]")).sendKeys("520999999");
 
+        driver.findElement(By.cssSelector(".reset-pwd-btn")).click();
+        // CSS Selector - custom locator using only tags (no attributes)
+        System.out.println(driver.findElement(By.cssSelector("form p")).getText());
+
+        // go back to login screen
+        driver.findElement(By.className("go-to-login-btn")).click();
+        Thread.sleep(1000);
+
+        // Now log into the application
+        driver.findElement(By.cssSelector("input#inputUsername")).sendKeys("myname");
+
+        // CSS Selector - custom locator using tagmane - attribute with regular expression
+        driver.findElement(By.cssSelector("input[type*='pass']")).sendKeys("rahulshettyacademy");
+
+        driver.findElement(By.id("chkboxOne")).click();
+
+        // XPath selector - custom locator using classname with regular expression
+        driver.findElement(By.xpath("//button[contains(@class,'submit')]")).click();
 
         driver.quit();
     }
